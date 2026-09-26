@@ -1,0 +1,25 @@
+# R specific
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# data, large files (do NOT upload raw EMG data to GitHub)
+*.csv
+*.rds
+*.rda
+*.RData
+data/
+raw_data/
+
+# figures
+*.png
+*.pdf
+*.jpg
+figures/
+
+# Quarto / Rmd output
+*_files/
+*_cache/
+*.html
