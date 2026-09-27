@@ -22,13 +22,8 @@ NORM_20 <- lapply(FILT_20, function(x) {
 
 # 算R²曲线
 get_r2 <- function(syn) {
-  # syn$R2 可能是 list 或 numeric，多种方式尝试
-  if (is.list(syn$R2)) {
-    if (!is.null(syn$R2$overall)) return(as.numeric(syn$R2$overall))
-    if (!is.null(syn$R2$VAF)) return(as.numeric(syn$R2$VAF))
-    return(as.numeric(unlist(syn$R2))[1])
-  }
-  return(as.numeric(syn$R2)[1])
+  # syn$R2 是 data.frame，包含 $synergies 和 $R2 两列
+  return(as.numeric(syn$R2$R2))
 }
 
 r2_20 <- numeric(10)
