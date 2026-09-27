@@ -27,3 +27,29 @@ SYNS_classified <- classify_kmeans(SYNS)
 
 # 7. 画你之前看到的那张经典图
 plot_classified_syns(SYNS_classified, condition = "TW", dark_mode = TRUE)
+r2_results <- c()
+for (n in 1:10) {
+  syn <- synsNMF(NORM_EMG[[1]], fixed_syns = n, runs = 3)
+  r2_results <- numeric(10)
+  for (n in 1:10) {
+    syn <- synsNMF(NORM_EMG[[1]], fixed_syns = n, runs = 3)
+    r2_results <- numeric(10)
+    for (n in 1:10) {
+      syn <- synsNMF(NORM_EMG[[1]], fixed_syns = n, runs = 3)
+      r2_results[n] <- as.numeric(unlist(syn$R2))[1]
+      cat(n, "个协同: R² =", round(as.numeric(unlist(syn$R2))[1], 4), "\n")
+    }
+    # === 论文级出图 ===
+    library(ggplot2)
+    
+    # 白底、黑色线、灰色误差带
+    pp <- plot_classified_syns(
+      SYNS_classified,
+      condition = "TW",
+      dark_mode = FALSE,           # 白底
+      line_col = "black",          # 黑线
+      sd_col = "grey80"            # 浅灰误差带
+    )
+    
+    # 保存成高清图（论文要求300dpi）
+    ggsave("synergy_plot.tiff", pp, width = 180, height = 150, dpi = 300, units = "mm")
